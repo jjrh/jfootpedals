@@ -41,25 +41,6 @@ keycodes={
     "KEY_F12"         :  205 ,
     }
 
-
-# ser = serial.Serial('/dev/ttyACM1',9600)
-# ser.flushInput()
-# ser.flushOutput()
-
-
-# ser.write("1+128\0")
-# #ser.write(bytes("58"))
-
-# print str(ser.readline())
-# print str(ser.readline())
-# print str(ser.readline())
-# print str(ser.readline())
-# print str(ser.readline())
-
-
-# ser.close()
-
-
 def write_to_serial(port,keycode):
     ser = serial.Serial('/dev/ttyACM1',9600)
     ser.setTimeout(20)
@@ -72,11 +53,6 @@ def write_to_serial(port,keycode):
 
     print ser.readline(),
 
-
-    
-    
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
@@ -85,6 +61,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     write_to_serial(args.port,args.keycode)
-
-
-    
