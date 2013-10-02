@@ -2,6 +2,8 @@
 
 Arduino using foot pedals to send keypresses
 
+Uses pins 2,3,4,5 of the arduino by default. 
+
 These are the special keycodes. 
 src: http://arduino.cc/en/Reference/KeyboardModifiers
 
@@ -44,8 +46,3 @@ src: http://arduino.cc/en/Reference/KeyboardModifiers
 | KEY_F12         |              0xCD |           205 |
 
 
-
-| 1 | 2 |
-|---+---|
-| a | b |
-| c | d |
