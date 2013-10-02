@@ -7,6 +7,7 @@ These are the special keycodes.
 src: http://arduino.cc/en/Reference/KeyboardModifiers
 
 | Key             | Hexadecimal value | Decimal value |
+|-----------------+-------------------+---------------|
 | KEY_LEFT_CTRL   |              0x80 |           128 |
 | KEY_LEFT_SHIFT  |              0x81 |           129 |
 | KEY_LEFT_ALT    |              0x82 |           130 |
