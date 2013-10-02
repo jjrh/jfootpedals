@@ -1,4 +1,4 @@
-
+#include <EEPROM.h>
 /*
 |                 |                   |               |
 | Key             | Hexadecimal value | Decimal value |
@@ -41,10 +41,10 @@
 
 
 /* OUTPUT KEYCODES */
-const int O1 = KEY_LEFT_CTRL;
-const int O2 = KEY_LEFT_ALT;
-const int O3 = KEY_LEFT_ARROW;
-const int O4 = KEY_RIGHT_ARROW;
+int O1 = EEPROM.read(0);
+int O2 = EEPROM.read(1);
+int O3 = EEPROM.read(2);
+int O4 = EEPROM.read(3);
 
 const int p1 = 2;
 const int p2 = 3;
@@ -53,8 +53,8 @@ const int p4 = 5;
 
 
 void setup() { 
-
- 
+  Serial.begin(9600);
+  
   pinMode(p1, INPUT);
   pinMode(p2, INPUT);
   pinMode(p3, INPUT);
@@ -72,6 +72,9 @@ void loop() {
 
   int STATE1 = digitalRead(p1);
   if((STATE1 == HIGH) && (last_state1 != HIGH)){
+    Serial.print("OUTPUT1:");
+    Serial.println(O1);
+
     Keyboard.press(O1);
     last_state1 = HIGH;
   }
@@ -83,6 +86,9 @@ void loop() {
 
   int STATE2 = digitalRead(p2);
   if((STATE2 == HIGH) && (last_state2 != HIGH)){
+    Serial.print("OUTPUT2:");
+    Serial.println(O2);
+
     Keyboard.press(O2);
     last_state2 = HIGH;
   }
@@ -94,6 +100,9 @@ void loop() {
 
   int STATE3 = digitalRead(p3);
   if((STATE3 == HIGH) && (last_state3 != HIGH)){
+    Serial.print("OUTPUT3:");
+    Serial.println(O3);
+    
     Keyboard.press(O3);
     last_state3 = HIGH;
   }
@@ -105,6 +114,9 @@ void loop() {
 
   int STATE4 = digitalRead(p4);
   if((STATE4 == HIGH) && (last_state4 != HIGH)){
+    Serial.print("OUTPUT4:");
+    Serial.println(O4);
+    
     Keyboard.press(O4);
     last_state4 = HIGH;
   }
@@ -115,6 +127,41 @@ void loop() {
   }
 
   delay(100);
+  if(Serial.available() > 0){
+    char buffer[256];
+    Serial.readBytes(buffer,256);
+    String buff = String(buffer);
+    int output = buffer[0] - '0';
+    String str_keycode = buff.substring(buff.indexOf("+")+1);
+    int keycode = str_keycode.toInt();
+    write_keycode(output,keycode);
+  }
+
+
 }
 
+
+void write_keycode(int output, int keycode){
+  EEPROM.write(output,keycode);
+  print_eeprom();
+}
+
+void print_eeprom(){
+  
+  O1 = EEPROM.read(0);
+  O2 = EEPROM.read(1);
+  O3 = EEPROM.read(2);
+  O4 = EEPROM.read(3);
+
+  Serial.print("OUTPUT1:");
+  Serial.print(O1);
+  Serial.print(" OUTPUT2:");
+  Serial.print(O2);
+  Serial.print(" OUTPUT3:");
+  Serial.print(O3);
+  Serial.print(" OUTPUT4:");
+  Serial.println(O4);
+
+  
+}
 
