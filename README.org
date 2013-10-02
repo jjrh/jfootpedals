@@ -46,3 +46,4 @@ src: http://arduino.cc/en/Reference/KeyboardModifiers
 | KEY_F12         |              0xCD |           205 |
 
 
+[[./pictures/all.png]]
